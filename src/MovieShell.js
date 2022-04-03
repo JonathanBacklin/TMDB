@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 const MovieShell = ({id,poster,title,name,overview,genre,releaseDate,airDate}) => {
    const [isShown, setIsShown] = useState(false); 
   let img = `http://image.tmdb.org/t/p/w200/${poster}`
+  // Release date fix
+  //id fix
   return (
     <>
     <div className="movieshell-container">

@@ -68,7 +68,7 @@ function App() {
     };
     Genres();
   }, []);
-
+// search bar fix
   const trendingSwitch = () => {
     trendingToggled ? setTrendingToggled(false) : setTrendingToggled(true)
     setTrendingCollapse(!trendingCollapse)
@@ -113,7 +113,6 @@ function App() {
       <div className="App-container">
         <div className="collapse-div" onClick={trendingSwitch}>
       <h1 className='Movies-h1' >Trending</h1><FaArrowDown className={trendingToggled ? "ArrowToggled" : "ArrowNotToggled"} />
-      {/* className='collapse-arrow' */}
       </div>
       <div className="separation-line" />
       {trendingCollapse ? (
@@ -126,7 +125,6 @@ function App() {
         if(search == ""){return x}
         else if( x.overview.toLowerCase().includes(search.toLowerCase())){return x}}).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
           </div>
-        
           </> ) : (
             <div className='wrapper'>
             {trendingOverView.filter((x) => {
