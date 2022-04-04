@@ -68,6 +68,25 @@ function App() {
     };
     Genres();
   }, []);
+
+  const searchFilter = x => { 
+    let moviename = x.original_title
+    let seriesname = x.name
+    if(moviename){
+      if( moviename.toLowerCase().includes(search.toLowerCase()))
+      {console.log(moviename)
+        return x}}
+      if(seriesname) {
+          if( seriesname.toLowerCase().includes(search.toLowerCase()))
+          {
+         {
+           return x}
+      }}
+      else if(moviename && seriesname == "")
+      {return x}
+    }
+    
+  
 // search bar fix
   const trendingSwitch = () => {
     trendingToggled ? setTrendingToggled(false) : setTrendingToggled(true)
@@ -118,18 +137,13 @@ function App() {
       {trendingCollapse ? (
         <>
       <div className="wrapper">
-    {trendingOverView.filter((x) => {
-        if(search == ""){return x}
-        else if( x.overview.toLowerCase().includes(search.toLowerCase())){return x}}).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
-      {trending.filter((x) => {
-        if(search == ""){return x}
-        else if( x.overview.toLowerCase().includes(search.toLowerCase())){return x}}).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+    {trendingOverView.filter((x) => searchFilter(x))
+       .map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+      {trending.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
           </div>
           </> ) : (
             <div className='wrapper'>
-            {trendingOverView.filter((x) => {
-        if(search == ""){return x}
-        else if( x.overview.toLowerCase().includes(search.toLowerCase())){return x}}).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+            {trendingOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
             </div>
            )}
            {/* TOP VOTED SECTION */}
@@ -141,19 +155,13 @@ function App() {
         {topVotedCollapse ? (
         <>
       <div className="wrapper">
-    {topVotedOverView.filter((x) => {
-        if(search == ""){return x}
-        else if( x.overview.toLowerCase().includes(search.toLowerCase())){return x}}).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
-      {topVoted.filter((x) => {
-        if(search == ""){return x}
-        else if( x.overview.toLowerCase().includes(search.toLowerCase())){return x}}).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+    {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+      {topVoted.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
           </div>
         
           </> ) : (
             <div className='wrapper'>
-            {topVotedOverView.filter((x) => {
-        if(search == ""){return x}
-        else if( x.overview.toLowerCase().includes(search.toLowerCase())){return x}}).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+            {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
             </div>
            )}
 
@@ -166,19 +174,13 @@ function App() {
         {recentCollapse ? (
         <>
       <div className="wrapper">
-    {recentOverView.filter((x) => {
-        if(search == ""){return x}
-        else if( x.overview.toLowerCase().includes(search.toLowerCase())){return x}}).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
-      {recent.filter((x) => {
-        if(search == ""){return x}
-        else if( x.overview.toLowerCase().includes(search.toLowerCase())){return x}}).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+    {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+      {recent.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
           </div>
         
           </> ) : (
             <div className='wrapper'>
-            {recentOverView.filter((x) => {
-        if(search == ""){return x}
-        else if( x.overview.toLowerCase().includes(search.toLowerCase())){return x}}).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+            {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
             </div>
            )}
            
