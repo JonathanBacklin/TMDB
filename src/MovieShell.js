@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 
 
-const MovieShell = ({id,poster,title,name,overview,genre,releaseDate,airDate}) => {
+const MovieShell = ({id,poster,title,name,genre,releaseDate,airDate}) => {
    const [isShown, setIsShown] = useState(false); 
   let img = `http://image.tmdb.org/t/p/w200/${poster}`
   // Release date fix
-  //id fix
   return (
-    <>
+    <div key={id}>
     <div className="movieshell-container">
       <div  className='movieshell-content'  onMouseEnter={() => {setIsShown(true)}} onMouseLeave={() => {setIsShown(false)}}>
     <img src={img}  alt={title} style={{display:'block',borderRadius:'10px'}} className='poster-image'/>
@@ -22,7 +21,7 @@ const MovieShell = ({id,poster,title,name,overview,genre,releaseDate,airDate}) =
      )} 
      </div>
      </div>
-    </>
+    </div>
   )
 }
 

@@ -1,34 +1,34 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import Navbar from './Navbar';
+import { Slider } from '@material-ui/core'
 
 const Discover = () => {
-    const [trending, setTrending] = useState([])
-    const [topVoted, setTopVoted] = useState([])
-    const [recent, setRecent] = useState([])
-    const [search, setSearch] = useState('')
+  const [minRating,setMinRating] = useState([0])
+  const [maxRating,setMaxRating] = useState([0])
+  const updateMinRating = (e,data) => {
+    setMinRating(data)
+  }
+  const updateMaxRating = (e,data) => {
+    setMaxRating(data)
+  }
   return (
       <>
-    <div className="navbar-container">
-        <div className="navbar-content">
-          <div>
-              <Link to="/" style={{textDecoration:'none'}}><h1 style={{margin:'0',color:'white',}}>Movies</h1></Link>
-          </div>
-          <div className='navbar-links'>
-              <Link to="/" style={{color:'white',fontSize:'24px'}}>Home</Link>
-              <Link to="/Discover" style={{color:'white',fontSize:'24px',textDecoration:'none'}}>Discover</Link>
-          </div>
-          <div className="search-bar-div">
-            <input type="text" className='search-bar' onChange={(e) => setSearch(e.target.value)} placeholder='Search'/>
-          </div>
-        </div>
-      </div>
-      <div className="App">
-            
-          <h1>Add Filters</h1>
+      <Navbar />
+      <div className="filter">
+          <h1>Filter</h1>
           <div className="separation-line"></div>
+          <div className="input-range-div">
+            <h1>Min: {minRating}</h1>
+            <Slider size="medium" max={10} value={minRating} onChange={updateMinRating}/>
+          </div>
+          <div className="input-range-div">
+            <h1>Max: {maxRating}</h1>
+            <Slider size="medium" max={10} value={maxRating} onChange={updateMaxRating}/>
+          </div>
+         
 
 
-      </div>
+          </div>
       </>
   )
 }

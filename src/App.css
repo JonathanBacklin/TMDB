@@ -164,6 +164,7 @@
     font-size: 36px;
     background: linear-gradient(90deg, #7CB896 -12.02%, #0AB3E4 137.5%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 .rectangle {
@@ -175,6 +176,14 @@
 
 }
 
+
+/*Discover CSS */
+.input-range-div {
+    display: flex;
+    justify-content: center;
+    max-width: 50%;
+    margin: 0 auto;
+}
 
 
 @media (max-width:1700px){

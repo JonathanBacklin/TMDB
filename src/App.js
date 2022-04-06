@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { FaArrowDown , FaSearch} from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { FaArrowDown} from 'react-icons/fa';
 import './App.css';
 import Footer from './Footer';
 import MovieShell from './MovieShell';
+import Navbar from './Navbar';
 
 
 function App() {
@@ -32,10 +32,10 @@ function App() {
     };
     Trending();
   }, []);
-  useEffect(() => {
-    console.log(trendingOverView)
-    console.log(trending)
-  },[trendingOverView])
+  // useEffect(() => {
+  //   console.log(trendingOverView)
+  //   console.log(trending)
+  // },[trendingOverView])
   useEffect(() => {
     const TopRated = async () => {
       const response = await fetch(
@@ -64,17 +64,28 @@ function App() {
         `https://api.themoviedb.org/3/genre/movie/list?api_key=f78a7122e289d7d5eff2ba85c984f4ba&language=en-US`
       );
       const resJson = await response.json();
-      setGenre(resJson.results);
+      setGenre(resJson.genres);
     };
     Genres();
   }, []);
+
+  
+  const checkedID = () => {
+    console.log(genre)
+    trending.map((x) => {
+      if(x.genre_ids === genre.id){
+        return genre.name
+      }
+    })
+  }
+  //if values exists return x.name
 
   const searchFilter = x => { 
     let moviename = x.original_title
     let seriesname = x.name
     if(moviename){
-      if( moviename.toLowerCase().includes(search.toLowerCase()))
-      {console.log(moviename)
+      if( moviename.toLowerCase().includes(search.toLowerCase())){
+      // console.log(moviename)
         return x}}
       if(seriesname) {
           if( seriesname.toLowerCase().includes(search.toLowerCase()))
@@ -87,7 +98,6 @@ function App() {
     }
     
   
-// search bar fix
   const trendingSwitch = () => {
     trendingToggled ? setTrendingToggled(false) : setTrendingToggled(true)
     setTrendingCollapse(!trendingCollapse)
@@ -112,22 +122,7 @@ function App() {
   }
   return (
     <>
-       <div className="navbar-container">
-        <div className="navbar-content">
-          <div>
-              <Link to="/" style={{textDecoration:'none',color:'white'}}><h1 >Movies</h1></Link>
-          </div>
-          <div className='navbar-links'>
-              <Link to="/" style={{color:'white',fontSize:'24px'}}>Home</Link>
-              <Link to="/Discover" style={{color:'white',fontSize:'24px',textDecoration:'none'}}>Discover</Link>
-          </div>
-          <div className="search-bar-div">
-            <input type="text"  className='search-bar' onChange={handleChange} placeholder="Search..."/>
-            <FaSearch id='search-icon'/>
-            </div>
-            
-        </div>
-      </div> 
+    <Navbar handleChange={handleChange} />
     <div className="App">
       <div className="App-container">
         <div className="collapse-div" onClick={trendingSwitch}>
@@ -138,49 +133,49 @@ function App() {
         <>
       <div className="wrapper">
     {trendingOverView.filter((x) => searchFilter(x))
-       .map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
-      {trending.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+       .map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} genre={checkedID()} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+      {trending.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} genre={checkedID()} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
           </div>
           </> ) : (
             <div className='wrapper'>
-            {trendingOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+            {trendingOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} genre={checkedID()} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
             </div>
            )}
            {/* TOP VOTED SECTION */}
-           <div className="collapse-div">
-        <h1 className='Movies-h1' onClick={topVotedSwitch}>Top Voted</h1>
+           <div className="collapse-div" onClick={topVotedSwitch} >
+        <h1 className='Movies-h1' >Top Voted</h1>
         <FaArrowDown className={topVotedToggled ? "ArrowToggled" : "ArrowNotToggled"}/>
         </div>
         <div className="separation-line" />
         {topVotedCollapse ? (
         <>
       <div className="wrapper">
-    {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
-      {topVoted.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+    {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} genre={checkedID()} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+      {topVoted.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} genre={checkedID()} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
           </div>
         
           </> ) : (
             <div className='wrapper'>
-            {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+            {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} genre={checkedID()} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
             </div>
            )}
 
            {/* NEWEST MOVIES SECTION */}
-           <div className="collapse-div">
-        <h1 className='Movies-h1' onClick={recentSwitch}>Newest</h1>
+           <div className="collapse-div" onClick={recentSwitch}>
+        <h1 className='Movies-h1' >Newest</h1>
         <FaArrowDown className={recentToggled ? "ArrowToggled" : "ArrowNotToggled"} />
         </div>
         <div className="separation-line" />
         {recentCollapse ? (
         <>
       <div className="wrapper">
-    {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
-      {recent.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+    {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} genre={checkedID()} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+      {recent.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} genre={checkedID()} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
           </div>
         
           </> ) : (
             <div className='wrapper'>
-            {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} overview={x.overview} genre={x.genre_ids} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+            {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} genre={checkedID()} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
             </div>
            )}
            

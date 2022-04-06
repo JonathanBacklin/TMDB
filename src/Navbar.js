@@ -1,28 +1,27 @@
-// import React, { useState } from 'react'
-// import { Link } from 'react-router-dom'
+ import React from 'react'
+import { Link } from 'react-router-dom'
+import {FaSearch} from 'react-icons/fa';
 
-// const Navbar = ({search,trending,topVoted,recent}) => {
+ const Navbar = ({handleChange}) => {
+     return (
+     <div className="navbar-container">
+       <div className="navbar-container">
+        <div className="navbar-content">
+          <div>
+              <Link to="/" style={{textDecoration:'none',color:'white'}}><h1 >Movies</h1></Link>
+          </div>
+          <div className='navbar-links'>
+              <Link to="/" style={{color:'white',fontSize:'24px'}}>Home</Link>
+              <Link to="/Discover" style={{color:'white',fontSize:'24px',textDecoration:'none'}}>Discover</Link>
+          </div>
+          <div className="search-bar-div">
+            <input type="text"  className='search-bar' onChange={handleChange} placeholder="Search..."/>
+            <FaSearch id='search-icon'/>
+            </div>
+        </div>
+      </div> 
+         </div>
+   )
+ }
 
-// //     const combined = [...trending.map(i => {id: i.id; type: "trending"}), ...topVoted.map(i => {id: i.id; type: "topvoted"}),
-// //      ...recent.map(i => {id: i.id; type: "recent"})]
-// //    let filteredMovies =  combined.filter((x) => {search.name.toLowerCase().includes(search.toLowerCase())})
-//     return (
-//     <div className="navbar-container">
-//             <div className="navbar-content">
-//                 <div>
-//                     <h1 style={{margin:'0',color:'white'}}>Movies</h1>
-//                 </div>
-//                 <div className='navbar-links'>
-//                     <Link to="/" style={{color:'white',fontSize:'25px'}}>Home</Link>
-//                     <Link to="/Discover" style={{color:'white',fontSize:'25px',textDecoration:'none'}}>Discover</Link>
-//                 </div>
-//                 <div className="search-bar-div">
-//                     <input type="search" className='search-bar' onChange={() => {setSearch(e.target.value)}} placeholder='Search'/>
-                    
-//                 </div>
-//             </div>
-//         </div>
-//   )
-// }
-
-// export default Navbar
+ export default Navbar
