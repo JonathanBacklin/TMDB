@@ -1,0 +1,55 @@
+/*Discover CSS */
+.discover-component-wrapper {
+    display: grid;
+    grid-template-columns: repeat(12,auto);
+    margin-top: 50px;
+}
+
+.filter {
+    padding: 2em;
+    grid-column:2 / 4;
+   background-color:rgba(71, 71, 71, 1); 
+   text-align: center;
+   height: 60vh;
+}
+
+.filter h3,.filter h1 {
+    text-align: center;
+    color: white;
+    font-weight: 500;
+}
+.filter-container {
+   width: 100%;
+   
+}
+.discover-movies {
+    width: 90%;
+    
+   grid-column: 5 / 13;
+}
+.discover-movies-content {
+display: grid;
+grid-template-columns: repeat(4,auto);
+}
+.discover-movies-content img {
+    margin: 10px 0 10px 0;
+}
+.discover-separation-line {
+    height: 2px;
+    width: 90%;
+    
+    background-color: #AD7D62;
+}
+
+.input-range-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.input-range-div .range-input {
+    color:rgba(173, 125, 98, 1) ;
+    
+
+}

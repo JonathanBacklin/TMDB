@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 
-const MovieShell = ({id,poster,title,name,genre,releaseDate,airDate}) => {
+const MovieShell = ({id,poster,title,name,checkedID,rating,releaseDate,airDate}) => {
    const [isShown, setIsShown] = useState(false); 
   let img = `http://image.tmdb.org/t/p/w200/${poster}`
   // Release date fix
@@ -16,7 +16,8 @@ const MovieShell = ({id,poster,title,name,genre,releaseDate,airDate}) => {
           <h4 className='text'>{name}</h4> 
           <h4 className='text'>{releaseDate}</h4>
           <h4 className='text'>{airDate}</h4>
-          <h4 className='text'>{genre}</h4> 
+          <h4 className="text">Rating: {rating}</h4>
+          <h4 className='text'>{() => checkedID()}</h4> 
         </div>
      )} 
      </div>

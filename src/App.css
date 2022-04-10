@@ -17,7 +17,12 @@
 }
 
 /* Movie Shell CSS*/
-
+.Movies-h1 {
+    font-size: 36px;
+    margin:0;
+    font-weight: 500;
+    color: white;
+}
 
 /* Collapse */
 .ArrowNotToggled {
@@ -39,11 +44,7 @@
     
     
 }
-.Movies-h1 {
-    font-size: 36px;
-    margin:0;
-    font-weight: 500;
-}
+
 
 /* content section */
 .wrapper{
@@ -174,15 +175,6 @@
     width: 65px;
     border-radius: 13px;
 
-}
-
-
-/*Discover CSS */
-.input-range-div {
-    display: flex;
-    justify-content: center;
-    max-width: 50%;
-    margin: 0 auto;
 }
 
 
