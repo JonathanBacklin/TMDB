@@ -69,19 +69,22 @@ function App() {
     Genres();
   }, []);
 
+
+
   
   const checkedID = x => { 
-    x.map((y) => { 
-     if(y.genre_ids === genre.id) 
-     return genre.name
-    }) }
+   let abc = genre.map(y => y.id && y.name)
+   let xyz = x.map(x => x.genre_ids)
+   if(abc.id == xyz){
+     return abc.name
+   }
+   }
 
 
     //onclick funktion så när du klickar på en film tas du till en annan komponent som tar in all info
 
   const searchFilter = x => {
-    let moviename = x.original_title
-    let seriesname = x.name
+    let moviename = x.original_title,seriesname = x.name
     if(moviename){
       if( moviename.toLowerCase().includes(search.toLowerCase())){
       // console.log(moviename)
@@ -92,7 +95,7 @@ function App() {
          {
            return x}
       }}
-      else if(moviename && seriesname == "")
+      else if(moviename && seriesname === "")
       {return x}
     }
     
@@ -132,14 +135,17 @@ function App() {
         <>
       <div className="wrapper">
     {trendingOverView.filter((x) => searchFilter(x))
-       .map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} checkedID={checkedID(trendingOverView)}  rating={x.vote_average} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
-      {trending.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} checkedID={checkedID(trending)}  rating={x.vote_average} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+       .map(x => {return(<MovieShell checkedID={(x) => checkedID(x)}  {...x} />)})}
+      {trending.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)}  {...x} />)})}
           </div>
           </> ) : (
             <div className='wrapper'>
-            {trendingOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} checkedID={checkedID(trendingOverView)}  rating={x.vote_average} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+            {trendingOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)}  {...x} />)})}
             </div>
            )}
+
+
+
            {/* TOP VOTED SECTION */}
            <div className="collapse-div" onClick={topVotedSwitch} >
         <h1 className='Movies-h1' >Top Voted</h1>
@@ -149,15 +155,18 @@ function App() {
         {topVotedCollapse ? (
         <>
       <div className="wrapper">
-    {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} checkedID={checkedID(topVotedOverView)}  rating={x.vote_average} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
-      {topVoted.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} checkedID={checkedID(topVoted)}  rating={x.vote_average} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+    {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x} />)})}
+      {topVoted.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x} />)})}
           </div>
         
           </> ) : (
             <div className='wrapper'>
-            {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} checkedID={checkedID(topVotedOverView)}  rating={x.vote_average} releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+            {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x} />)})}
             </div>
            )}
+
+
+
 
            {/* NEWEST MOVIES SECTION */}
            <div className="collapse-div" onClick={recentSwitch}>
@@ -168,18 +177,17 @@ function App() {
         {recentCollapse ? (
         <>
       <div className="wrapper">
-    {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} checkedID={checkedID(recentOverView)}  rating={x.vote_average}  releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
-      {recent.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} checkedID={checkedID(recent)}  rating={x.vote_average}  releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+    {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x}/>)})}
+      {recent.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x}/>)})}
           </div>
-        
           </> ) : (
             <div className='wrapper'>
-            {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell id={x.id} poster={x.poster_path} title={x.original_title} name={x.name} checkedID={checkedID(recentOverView)}  rating={x.vote_average}  releaseDate={x.release_date} airDate={x.first_air_date}/>)})}
+            {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x}/>)})}
             </div>
            )}
-           
             </div>
-    </div><div style={{marginTop:'100px'}}>
+    </div>
+    <div style={{marginTop:'100px'}}>
     <Footer/>
 
     </div>

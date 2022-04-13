@@ -6,11 +6,12 @@
 }
 
 .filter {
-    padding: 2em;
-    grid-column:2 / 4;
+   padding: 2em;
+   grid-column:2 / 4;
    background-color:rgba(71, 71, 71, 1); 
    text-align: center;
-   height: 60vh;
+   height: 70vh;
+   border-radius: 5px;
 }
 
 .filter h3,.filter h1 {
@@ -23,8 +24,6 @@
    
 }
 .discover-movies {
-    width: 90%;
-    
    grid-column: 5 / 13;
 }
 .discover-movies-content {
@@ -36,15 +35,31 @@ grid-template-columns: repeat(4,auto);
 }
 .discover-separation-line {
     height: 2px;
-    width: 90%;
-    
+    width: 95%;
     background-color: #AD7D62;
+}
+.buttons {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.buttons button {
+    display: flex;
+    align-items: center;
+    background-color: #474747;
+    border: none;
+    color: white;
+    font-size: 20px;
+    margin: 0 10px;
+}
+.buttons .current-page {
+    font-size: 25px;
+    background-color: transparent;   
+    color: white;
 }
 
 .input-range-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
     
 }
 

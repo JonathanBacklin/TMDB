@@ -111,7 +111,12 @@
 }
 .navbar-link {
     text-decoration: none;
+    color: white;
+    font-size: 24px;
 
+}
+.navbar-link:focus {
+    text-decoration: underline;
 }
 .search-bar-div {
     position: relative;

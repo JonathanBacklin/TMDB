@@ -1,8 +1,12 @@
 import React from 'react'
 
-const ClickedShell = () => {
+const ClickedShell = ({id}) => {
   return (
-    <div>ClickedShell</div>
+    <div>
+      <div>
+       {id}
+      </div>
+    </div>
   )
 }
 
