@@ -6,6 +6,16 @@ import MovieShell from './MovieShell';
 import Navbar from './Navbar';
 
 
+
+// Alla api requests
+const apiKey = 'f78a7122e289d7d5eff2ba85c984f4ba'
+const baseUrl = 'https://api.themoviedb.org/3'
+const trendingFetch = `${baseUrl}/trending/all/day?api_key=${apiKey}&language=en-US&page=1`
+const topRatedFetch = `${baseUrl}/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
+const recentFetch = `${baseUrl}/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`
+const genresFetch = `${baseUrl}/genre/movie/list?api_key=${apiKey}&language=en-US`
+
+
 function App() {
   const [trending, setTrending] = useState([])
   const [trendingOverView, setTrendingOverView] = useState([])
@@ -23,24 +33,16 @@ function App() {
   const [recentToggled,setRecentToggled] = useState(false)
   useEffect(() => {
     const Trending = async () => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/trending/all/day?api_key=f78a7122e289d7d5eff2ba85c984f4ba&language=en-US&page=1`
-      );
+      const response = await fetch(trendingFetch);
       const resJson = await response.json();
       setTrending(resJson.results.slice(5));
       setTrendingOverView(resJson.results.slice(0,5))
     };
-    Trending();
-  }, []);
-  // useEffect(() => {
-  //   console.log(trendingOverView)
-  //   console.log(trending)
-  // },[trendingOverView])
+    Trending()
+    ;}, []);
   useEffect(() => {
     const TopRated = async () => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=f78a7122e289d7d5eff2ba85c984f4ba&language=en-US&page=1`
-      );
+      const response = await fetch(topRatedFetch);
       const resJson = await response.json();
       setTopVoted(resJson.results.slice(5));
       setTopVotedOverView(resJson.results.slice(0,5))
@@ -49,9 +51,7 @@ function App() {
   }, []);
   useEffect(() => {
     const Recent = async () => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/now_playing?api_key=f78a7122e289d7d5eff2ba85c984f4ba&language=en-US&page=1`
-      );
+      const response = await fetch(recentFetch);
       const resJson = await response.json();
       setRecent(resJson.results.slice(5));
       setRecentOverView(resJson.results.slice(0,5))
@@ -60,9 +60,7 @@ function App() {
   }, []);
   useEffect(() => {
     const Genres = async () => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=f78a7122e289d7d5eff2ba85c984f4ba&language=en-US`
-      );
+      const response = await fetch(genresFetch);
       const resJson = await response.json();
       setGenre(resJson.genres);
     };
@@ -75,7 +73,7 @@ function App() {
   const checkedID = x => { 
    let abc = genre.map(y => y.id && y.name)
    let xyz = x.map(x => x.genre_ids)
-   if(abc.id == xyz){
+   if(abc.filter(x => x.id.includes(xyz.id))){
      return abc.name
    }
    }
@@ -83,11 +81,11 @@ function App() {
 
     //onclick funktion så när du klickar på en film tas du till en annan komponent som tar in all info
 
+    
   const searchFilter = x => {
     let moviename = x.original_title,seriesname = x.name
     if(moviename){
       if( moviename.toLowerCase().includes(search.toLowerCase())){
-      // console.log(moviename)
         return x}}
       if(seriesname) {
           if( seriesname.toLowerCase().includes(search.toLowerCase()))
@@ -122,10 +120,16 @@ function App() {
       setTopvotedToggle(true)
       setRecentToggled(true)
   }
+
+
+  
   return (
+
     <>
     <Navbar handleChange={handleChange} />
     <div className="App">
+      
+      {/* TRENDING SECTION */}
       <div className="App-container">
         <div className="collapse-div" onClick={trendingSwitch}>
       <h1 className='Movies-h1' >Trending</h1><FaArrowDown className={trendingToggled ? "ArrowToggled" : "ArrowNotToggled"} />
@@ -135,12 +139,12 @@ function App() {
         <>
       <div className="wrapper">
     {trendingOverView.filter((x) => searchFilter(x))
-       .map(x => {return(<MovieShell checkedID={(x) => checkedID(x)}  {...x} />)})}
-      {trending.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)}  {...x} />)})}
+       .map(x => {return(<MovieShell key={x.id}  {...x} />)})}
+      {trending.filter((x) => searchFilter(x)).map(x => {return(<MovieShell key={x.id}   {...x} />)})}
           </div>
           </> ) : (
             <div className='wrapper'>
-            {trendingOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)}  {...x} />)})}
+            {trendingOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell key={x.id}   {...x} />)})}
             </div>
            )}
 
@@ -155,13 +159,13 @@ function App() {
         {topVotedCollapse ? (
         <>
       <div className="wrapper">
-    {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x} />)})}
-      {topVoted.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x} />)})}
+    {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell key={x.id}  {...x} />)})}
+      {topVoted.filter((x) => searchFilter(x)).map(x => {return(<MovieShell key={x.id}  {...x} />)})}
           </div>
         
           </> ) : (
             <div className='wrapper'>
-            {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x} />)})}
+            {topVotedOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell key={x.id}  {...x} />)})}
             </div>
            )}
 
@@ -177,19 +181,18 @@ function App() {
         {recentCollapse ? (
         <>
       <div className="wrapper">
-    {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x}/>)})}
-      {recent.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x}/>)})}
+    {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell key={x.id}  {...x}/>)})}
+      {recent.filter((x) => searchFilter(x)).map(x => {return(<MovieShell key={x.id}  {...x}/>)})}
           </div>
           </> ) : (
             <div className='wrapper'>
-            {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell checkedID={(x) => checkedID(x)} {...x}/>)})}
+            {recentOverView.filter((x) => searchFilter(x)).map(x => {return(<MovieShell key={x.id}  {...x}/>)})}
             </div>
            )}
             </div>
     </div>
     <div style={{marginTop:'100px'}}>
     <Footer/>
-
     </div>
   </>
   );

@@ -7,14 +7,17 @@
 
 .filter {
    padding: 2em;
-   grid-column:2 / 4;
+   grid-column:2 / 3;
    background-color:rgba(71, 71, 71, 1); 
-   text-align: center;
-   height: 70vh;
    border-radius: 5px;
+   height: min-content;
 }
 
 .filter h3,.filter h1 {
+    color: white;
+    font-weight: 500;
+}
+.filter h1,.filter h2 {
     text-align: center;
     color: white;
     font-weight: 500;
@@ -24,7 +27,7 @@
    
 }
 .discover-movies {
-   grid-column: 5 / 13;
+   grid-column: 4 / 13;
 }
 .discover-movies-content {
 display: grid;
@@ -62,9 +65,32 @@ grid-template-columns: repeat(4,auto);
     display: grid;
     
 }
-
+.genres-div {
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+}
+.genre-button {
+    border: none;
+    background-color: rgba(56, 81, 84, 1);
+    color: white;
+    font-family: inherit;
+    margin: 5px;
+    border-radius: 13px;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 15px;
+}
 .input-range-div .range-input {
     color:rgba(173, 125, 98, 1) ;
-    
+}
 
+.discover-view-more-button {
+    float: right;
+    border: none;
+    background-color: transparent;
+    color: white;
+    text-decoration: underline;
+    font-family: inherit;
+    font-size: 20px;
+    cursor: pointer;
 }

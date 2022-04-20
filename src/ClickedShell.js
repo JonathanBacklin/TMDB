@@ -1,10 +1,16 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import Navbar from './Navbar'
+import { ClickedMovieContext } from './Contexts/ClickedMovieContext';
 
-const ClickedShell = ({id}) => {
+
+const ClickedShell = ({}) => {
+  const { data } = useContext(ClickedMovieContext)
+  console.log(data)
   return (
     <div>
+      <Navbar/>
       <div>
-       {id}
+        {data}
       </div>
     </div>
   )
