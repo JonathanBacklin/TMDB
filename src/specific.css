@@ -1,0 +1,13 @@
+/* Specific movie section */
+
+.specific-movie-section {
+    text-align: center;
+    /* display: grid;
+    grid-template-columns: repeat(12,1fr); */
+    color: white;
+}
+.actors {
+    /* grid-column: 1 / 13; */
+    display: flex;
+    justify-content: space-evenly;
+}

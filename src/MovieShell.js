@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 const MovieShell = ({id,poster_path,original_title,name,vote_average,release_date,first_air_date,checkedID}) => {
    const [isShown, setIsShown] = useState(false); 
-  let img = `http://image.tmdb.org/t/p/w200/${poster_path}`
   // Release date fix
   
   return (
@@ -12,7 +11,7 @@ const MovieShell = ({id,poster_path,original_title,name,vote_average,release_dat
     <div className="movieshell-container">
       <div  className='movieshell-content'  onMouseEnter={() => {setIsShown(true)}} onMouseLeave={() => {setIsShown(false)}}>
       <Link to={`/movie/${id}`}>
-    <img src={img}  alt={original_title} style={{display:'block',borderRadius:'10px',color:'white'}} className='poster-image'/>
+    <img src={`http://image.tmdb.org/t/p/w200/${poster_path}`}  alt={original_title} style={{display:'block',borderRadius:'10px',color:'white'}} className='poster-image'/>
     {isShown && ( 
       <div className='overlay'>
           <h4 className='text'>{original_title}</h4>

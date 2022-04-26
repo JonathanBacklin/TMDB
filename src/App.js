@@ -66,11 +66,12 @@ function App() {
     };
     Genres();
   }, []);
+  
 
 
 
   const checkedID = x => {
-     console.log(x.genre_ids)
+    //  console.log(x.genre_ids)
     let test = genre.map((x) => x.id && x.name)
     // console.log(test)
     // console.log(genre.map((x) => x.id))
