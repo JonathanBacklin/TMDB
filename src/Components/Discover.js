@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar';
 import { Slider } from '@material-ui/core'
-import "./discover.css"
+import "../css/discover.css"
 import MovieShell from './MovieShell';
 import { FaArrowLeft,FaArrowRight } from 'react-icons/fa';
 

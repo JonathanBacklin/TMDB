@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { FaArrowDown} from 'react-icons/fa';
-import './App.css';
-import Footer from './Footer';
-import MovieShell from './MovieShell';
-import Navbar from './Navbar';
+import './css/App.css';
+import Footer from './Components/Footer';
+import MovieShell from './Components/MovieShell';
+import Navbar from './Components/Navbar';
 
 
 

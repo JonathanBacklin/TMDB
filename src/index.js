@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './css/index.css';
 import App from './App';
-import Discover from './Discover';
+import Discover from './Components/Discover';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ClickedShell from './ClickedShell';
+import ClickedShell from './Components/ClickedShell';
 
 ReactDOM.render(
   <React.StrictMode>

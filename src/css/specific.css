@@ -1,0 +1,55 @@
+/* Specific movie section */
+
+.specific-movie-section {
+    width: 90%;
+    margin: 0 auto;
+    /* display: grid;
+    grid-template-columns: repeat(12,1fr); */
+    color: white;
+}
+.specific-description-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.specific-review-button {
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    font-family: inherit;
+    border: none;
+    font-size: 25px;
+    margin-right: 20px;
+}
+.specific-genre {
+    background-color: #385154;
+    padding: 0.5em;
+    border-radius: 13px;
+    margin: 0 5px;
+}
+.actors {
+    /* grid-column: 1 / 13; */
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.specific-separation-line {
+        height: 2px;
+        width: 100%;
+        margin: 15px auto;
+        background-color: #AD7D62;
+}
+.specific-header-section {
+    margin-top: 20px;
+    position: relative;
+    width: 100%;
+    height: 70vh;
+}
+.youtube-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
