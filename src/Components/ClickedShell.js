@@ -64,7 +64,7 @@ const ClickedShell = () => {
 
 
 
-  const renderTrailer = () => {
+  const render = () => {
     const movieTrailer = trailer.results.find(x => x.type === "Trailer" || x.type === "Official" ||  x.name === "Official Trailer" || x.name === "Main Trailer" || x.name === "Trailer")
     // const seriesTrailer = tvSeries.results.find(x => x.name === "Official Trailer" || x.name === "Main Trailer" || x.name === "Trailer")
     return(
@@ -86,13 +86,13 @@ const ClickedShell = () => {
     <Navbar/>
     <div className='specific-movie-section'>
       <div className='specific-header-section'>
-      {trailer.results ? renderTrailer() : null}
+      {trailer.results ? render() : null}
       </div>
       <h1 style={{textAlign:'center',fontSize:'64px'}}>{ movies.original_title} - {movies.release_date ? movies.release_date.slice(0,4) : null}</h1>
       <div className='specific-description-container'>
         <div className='specific-description-header'>
           <h1>Description</h1>
-      <h1>Rating:{movies.vote_average}</h1>
+      <h1>Rating: {movies.vote_average}</h1>
         </div>
         <div className='specific-separation-line'></div>
       <h3>{movies.overview}</h3>

@@ -40,6 +40,7 @@ const Discover = () => {
     const Discover = async () => {
       const response = await fetch(discoverFetch);
       const resJson = await response.json();
+      console.log(resJson)
       setDiscoverMovies(resJson.results);}
       Discover()
   },[minRating,maxRating,fromReleaseYear,toReleaseYear,page,filterGenre])
@@ -77,6 +78,13 @@ const Discover = () => {
       }}
       else if(moviename && seriesname === "")
       {return x}
+    }
+
+    const JumpTenPageFunction = () => {
+      page > 10 ? setPage(page - 10) : setPage(1)
+    }
+    const JumpOnePageFunction = () => {
+      page > 1 ? setPage(page - 1) : setPage(1)
     }
 
   
@@ -134,11 +142,11 @@ const Discover = () => {
               )})}
           </div>
           <div className='buttons'>
-          <button onClick={() => setPage(page -10)}><FaArrowLeft/><FaArrowLeft/></button>
-          <button onClick={() => setPage(page -1)}><FaArrowLeft/></button>
+          <button onClick={() => JumpTenPageFunction()}><FaArrowLeft/><FaArrowLeft/></button>
+          <button onClick={() => JumpOnePageFunction()}><FaArrowLeft/></button>
           <p className='current-page'>{page}</p>
           <button onClick={() => setPage(page+1)}><FaArrowRight/></button>
-          <button onClick={() => setPage(page+10)}><FaArrowRight/><FaArrowRight/></button>
+          <button onClick={() => setPage(page + 10)}><FaArrowRight/><FaArrowRight/></button>
           </div>
           </div>
           </div>
