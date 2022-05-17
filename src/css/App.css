@@ -1,14 +1,18 @@
-
-.App {
+html,
+body {
+    margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    color: white;
-    
+    width: 100%;
 }
+
 .App-container {
     padding: 2em 0 2em 0;
-   
+    width: 100%;
+    box-sizing: border-box;
+    color: white;
+
 }
+
 .separation-line {
     height: 2px;
     width: 90%;
@@ -16,10 +20,10 @@
     background-color: #AD7D62;
 }
 
-/* Movie Shell CSS*/
-.Movies-h1 {
+/* MovieShell CSS*/
+.section-title {
     font-size: 36px;
-    margin:0;
+    margin: 0;
     font-weight: 500;
     color: white;
 }
@@ -27,31 +31,31 @@
 /* Collapse */
 .ArrowNotToggled {
     margin-left: 10px;
-    font-size:20px;
+    font-size: 20px;
     transform: rotate(0deg);
     transition: 150ms ease-in;
 }
+
 .ArrowToggled {
     margin-left: 10px;
-    font-size:20px;
+    font-size: 20px;
     transform: rotate(180deg);
     transition: 150ms ease-in;
 }
+
 .collapse-div {
     width: 90%;
     margin: 0 auto;
     display: flex;
-    align-items:baseline;
+    align-items: baseline;
     cursor: pointer;
-    
-    
 }
 
 
 /* content section */
-.wrapper{
+.wrapper {
     display: grid;
-    grid-template-columns:repeat(5,auto);
+    grid-template-columns: repeat(5, auto);
     padding: 15px 0 0 0;
 }
 
@@ -59,17 +63,20 @@
     padding: 1em 0 1em 0;
     margin: 0;
 }
+
 .movieshell-content {
-    position:relative;
-    width:200px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 200px;
     margin: 0 auto;
 }
 
 .poster-image {
     cursor: pointer;
-    transform: 350ms ease-in;
 }
-.overlay{
+
+.overlay {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -79,140 +86,14 @@
     flex-direction: column;
     justify-content: center;
     transform: 350ms ease-in;
-    background-color:#1C1C1C;
+    background-color: #1C1C1C;
     color: white;
     text-align: center;
     opacity: 0.9;
 }
+
 .text {
     padding: 0;
     margin: 0;
     word-wrap: wrap;
-}
-/* NAVBAR CSS*/
-
-.navbar-container {
-    margin: 0;
-    width: 100%;
-    background-color: #385154;
-
-}
-
-.navbar-content {
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.navbar-links {
-    width: 80%;
-    margin: 0 200px 0 0;
-    display: flex;
-    justify-content: space-evenly;
-}
-.navbar-link {
-    text-decoration: none;
-    color: white;
-    font-size: 24px;
-
-}
-.navbar-link:focus {
-    text-decoration: underline;
-}
-.search-bar-div {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-.search-bar {
-    font-size: 16px;
-    padding:  1em 3em 1em 1em;
-    border-radius: 20px;
-    background-color: rgba(140, 163, 166, 1);
-    color: white;
-    border: none;
-}
-#search-icon {
-    color: white;
-    position: absolute;
-    font-size: 16px;
-    right: 5%;
-
-}
-::-webkit-input-placeholder {
-    color: white;
-  }
-
-/*Footer CSS*/
-.footer-container {
-    position: fixed;
-    
-    bottom: 0;
-    width: 100%;
-    background-color: #304042;
-    padding: 0;
-    margin: 0;
-    z-index: 100;
-}
-.footer-content {
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-}
-.linear-content {
-    display:flex;
-     align-items:center;
-}
-
-.tmdb-logo{
-    display: flex;
-    margin: 0;
-    font-size: 36px;
-    background: linear-gradient(90deg, #7CB896 -12.02%, #0AB3E4 137.5%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.rectangle {
-    margin: 0 20px 0 20px;
-    background: linear-gradient(90deg, #7CB896 0%, #0AB3E4 100%);
-    height: 16px;
-    width: 65px;
-    border-radius: 13px;
-
-}
-
-
-@media (max-width:1700px){
-    .wrapper{
-        grid-template-columns:repeat(5,auto);
-    }
-    .poster-image{
-        width: 200px;
-    }
-    .movieshell-content {
-        width: 200px;
-    }
-    .text {
-        max-width: 200px;
-    }
-
-}
-@media (max-width:1000px){
-    .wrapper{
-        grid-template-columns:repeat(3,auto);
-    }
-    .poster-image {
-        width: 100px;
-        height: 149px;
-    }
-
-}
-@media (max-width:700px){
-    .wrapper{
-        grid-template-columns:repeat(2,auto);
-    }
-
 }

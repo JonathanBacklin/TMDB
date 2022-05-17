@@ -1,0 +1,60 @@
+.mobile-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  padding: 15px 0 0 0;
+}
+
+.mobile-separation-line {
+  height: 2px;
+  width: 90%;
+  margin: 15px auto;
+  background-color: #AD7D62;
+}
+
+.mobile-movieshell-content {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 150px;
+  margin: 0 auto;
+
+}
+
+.smaller-image {
+  width: 150px;
+  max-width: 100%;
+}
+
+.mobile-discover-section {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}
+
+.mobile-genres-div {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+}
+
+.mobile-input-range-div {
+  width: 40%;
+}
+
+.mobile-input-range-div .range-input {
+  color: rgba(173, 125, 98, 1);
+}
+
+.mobile-discover-wrapper {
+  padding: 15px;
+}
+
+
+
+.MuiSlider-root .MuiSlider-rail {
+  height: 15px;
+  border-radius: 5px;
+}
+
+.MuiSlider-root .MuiSlider-thumb {
+  height: 25px;
+  width: 25px;
+}

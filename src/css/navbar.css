@@ -1,0 +1,116 @@
+/* NAVBAR CSS*/
+
+.navbar-container {
+  margin: 0;
+  width: 100%;
+  background-color: #385154;
+
+}
+
+.navbar-content {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-links {
+  width: 80%;
+  margin: 0 200px 0 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: white;
+  font-size: 24px;
+
+}
+
+.navbar-link:focus {
+  text-decoration: underline;
+}
+
+.search-bar-div {
+  position: relative;
+  display: flex;
+
+  align-items: center;
+}
+
+.search-bar {
+  font-size: 16px;
+  padding: 1em 3em 1em 1em;
+  border-radius: 20px;
+  background-color: rgba(140, 163, 166, 1);
+  color: white;
+  border: none;
+}
+
+#search-icon {
+  color: white;
+  position: absolute;
+  font-size: 16px;
+  right: 5%;
+
+}
+
+::-webkit-input-placeholder {
+  color: white;
+}
+
+.navbar-button {
+  display: none;
+}
+
+@media (max-width:1000px) {
+  .search-bar {
+    display: none;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: scroll;
+    list-style: none;
+    position: fixed;
+    top: 0;
+    background: #111;
+    left: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 0;
+    overflow: hidden;
+    z-index: 9;
+  }
+
+  .navbar-link {
+    margin: 10px 0;
+    font-size: 30px;
+  }
+
+  .navbar-links.showMenu {
+    width: 100%;
+    transition: 150ms ease-in;
+  }
+
+  .navbar-links a:first-child {
+    margin-top: 2rem;
+  }
+
+  .navbar-button {
+    display: block;
+    right: 40px;
+    z-index: 10;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+  }
+
+
+
+}

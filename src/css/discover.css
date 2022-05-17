@@ -1,51 +1,55 @@
 /*Discover CSS */
 .discover-component-wrapper {
     display: grid;
-    grid-template-columns: repeat(12,auto);
+    grid-template-columns: repeat(12, auto);
     margin-top: 50px;
 }
 
 .filter {
-   padding: 2em;
-   grid-column:2 / 3;
-   background-color:rgba(71, 71, 71, 1); 
-   border-radius: 5px;
-   height: min-content;
+    padding: 2em;
+    grid-column: 2 / 3;
+    background-color: rgba(71, 71, 71, 1);
+    border-radius: 5px;
+    height: min-content;
 }
 
-.filter h3,.filter h1 {
-    color: white;
-    font-weight: 500;
-}
-.filter h1,.filter h2 {
+.filter h1,
+.filter h2 {
     text-align: center;
     color: white;
     font-weight: 500;
 }
+
 .filter-container {
-   width: 100%;
-   
+    width: 100%;
+
 }
+
 .discover-movies {
-   grid-column: 4 / 13;
+    grid-column: 4 / 13;
 }
+
 .discover-movies-content {
-display: grid;
-grid-template-columns: repeat(4,auto);
+    display: grid;
+    grid-template-columns: repeat(4, auto);
 }
+
 .discover-movies-content img {
     margin: 10px 0 10px 0;
 }
+
 .discover-separation-line {
     height: 2px;
     width: 95%;
     background-color: #AD7D62;
 }
+
 .buttons {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
 }
+
 .buttons button {
     display: flex;
     align-items: center;
@@ -55,20 +59,23 @@ grid-template-columns: repeat(4,auto);
     font-size: 20px;
     margin: 0 10px;
 }
+
 .buttons .current-page {
     font-size: 25px;
-    background-color: transparent;   
+    background-color: transparent;
     color: white;
 }
 
 .input-range-div {
     display: grid;
-    
+
 }
+
 .genres-div {
     display: grid;
-    grid-template-columns: repeat(3,auto);
+    grid-template-columns: repeat(3, auto);
 }
+
 .genre-button {
     border: none;
     background-color: rgba(56, 81, 84, 1);
@@ -79,9 +86,12 @@ grid-template-columns: repeat(4,auto);
     cursor: pointer;
     padding: 5px;
     font-size: 15px;
+
 }
+
 .input-range-div .range-input {
-    color:rgba(173, 125, 98, 1) ;
+    color: rgba(173, 125, 98, 1);
+
 }
 
 .discover-view-more-button {
@@ -94,7 +104,3 @@ grid-template-columns: repeat(4,auto);
     font-size: 20px;
     cursor: pointer;
 }
-
-
-
-
