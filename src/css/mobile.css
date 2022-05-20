@@ -32,7 +32,8 @@
 
 .mobile-genres-div {
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(3, 1fr);
+
 }
 
 .mobile-input-range-div {
@@ -57,4 +58,22 @@
 .MuiSlider-root .MuiSlider-thumb {
   height: 25px;
   width: 25px;
+}
+
+@media(max-width:800px) {
+
+  .mobile-movieshell-content,
+  .smaller-image {
+    width: 100px;
+
+  }
+}
+
+
+@media(max-width:360px) {
+
+  .mobile-discover-section,
+  .mobile-wrapper {
+    grid-template-columns: repeat(2, auto);
+  }
 }

@@ -36,11 +36,11 @@
 .search-bar-div {
   position: relative;
   display: flex;
-
   align-items: center;
 }
 
-.search-bar {
+.search-bar,
+.mobile-search-bar {
   font-size: 16px;
   padding: 1em 3em 1em 1em;
   border-radius: 20px;
@@ -54,20 +54,46 @@
   position: absolute;
   font-size: 16px;
   right: 5%;
-
 }
 
 ::-webkit-input-placeholder {
   color: white;
 }
 
-.navbar-button {
-  display: none;
+
+
+
+@media (min-width:1000px) {
+
+  .mobile-search-bar,
+  .responsive-navbar-button-wrapper {
+    display: none;
+  }
 }
 
 @media (max-width:1000px) {
-  .search-bar {
+
+  .search-bar,
+  .mobile-search-bar,
+  #search-icon {
     display: none;
+  }
+
+
+  .opened-search-bar {
+    display: block;
+    max-width: 100%;
+    margin: 10px auto 0 auto;
+    border-radius: 5px;
+
+  }
+
+  .responsive-navbar-button-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    z-index: 11;
   }
 
   .navbar-links {
@@ -103,14 +129,12 @@
 
   .navbar-button {
     display: block;
-    right: 40px;
+    /* right: 40px; */
     z-index: 10;
     cursor: pointer;
     background-color: transparent;
     border: none;
     font-size: 30px;
   }
-
-
 
 }

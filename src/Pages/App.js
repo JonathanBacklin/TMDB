@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowDown } from 'react-icons/fa';
-import './css/App.css';
-import './css/mobile.css';
-import Footer from './Components/Footer';
-import MovieShell from './Components/MovieShell';
-import Navbar from './Components/Navbar';
+import '../css/App.css';
+import '../css/mobile.css';
+import MovieShell from '../Components/MovieShell';
+import Navbar from '../Components/Navbar'
+import { SearchFunction } from '../Utilities/SearchFunction';
+import { MobileAppView } from '../Components/MobileAppView';
+import { ResizeWindowFunction } from '../Utilities/ResizeWindowFunction';
 
 
 
@@ -47,19 +49,13 @@ function App() {
   const topRatedFetch = `${BASEURL}/movie/top_rated?api_key=${APIKEY}&language=en-US&page=1`
   const recentFetch = `${BASEURL}/movie/now_playing?api_key=${APIKEY}&language=en-US&page=1`
   const genresFetch = `${BASEURL}/genre/movie/list?api_key=${APIKEY}&language=en-US`
-
-
+  const searchFilter = SearchFunction(search)
 
 
 
   // MY MANY API CALLS
-  useEffect(() => {
-    const handleResizeWindow = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleResizeWindow);
-    return () => {
-      window.removeEventListener("resize", handleResizeWindow);
-    };
-  }, []);
+  ResizeWindowFunction(setWidth);
+
 
   useEffect(() => {
 
@@ -116,19 +112,6 @@ function App() {
 
   }
 
-  const searchFilter = x => {
-    let moviename = x.original_title, seriesname = x.name;
-    if (moviename) {
-      if (moviename.toLowerCase().includes(search.toLowerCase())) { return x }
-    }
-    if (seriesname) {
-      if (seriesname.toLowerCase().includes(search.toLowerCase())) {
-        return x
-      }
-    } else if (moviename && seriesname === "") { return x }
-  }
-
-
   const trendingSwitch = () => {
     trendingToggled ? setTrendingToggled(false) : setTrendingToggled(true)
     setTrendingCollapse(!trendingCollapse)
@@ -156,65 +139,24 @@ function App() {
       <Navbar handleChange={handleChange} />
       <div className="App-container">
         {width < breakpoint ? (
-          <>
-            {/* MOBILE WIDTH */}
-
-            {/* MOBILE TRENDING SECTION */}
-            <div className="collapse-div" onClick={trendingSwitch}>
-              <h1 className='section-title' >Trending</h1><FaArrowDown className={trendingToggled ? "ArrowToggled" : "ArrowNotToggled"} />
-            </div>
-            <div className="mobile-separation-line" />
-
-            {trendingCollapse ? (
-              <>
-                <div className="mobile-wrapper">
-                  {mobileTrendingOverView.filter((x) => searchFilter(x))
-                    .map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-                  {mobileTrending.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}   {...x} />) })}
-                </div>
-              </>) : (
-              <div className='mobile-wrapper'>
-                {mobileTrendingOverView.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}   {...x} />) })}
-              </div>
-            )}
-            {/* MOBILE TOP VOTED SECTION */}
-            <div className="collapse-div" onClick={topVotedSwitch} >
-              <h1 className='section-title' >Top Voted</h1>
-              <FaArrowDown className={topVotedToggled ? "ArrowToggled" : "ArrowNotToggled"} />
-            </div>
-            <div className="mobile-separation-line" />
-            {topVotedCollapse ? (
-              <>
-                <div className="mobile-wrapper">
-                  {mobileTopVotedOverView.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-                  {mobileTopVoted.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-                </div>
-
-              </>) : (
-              <div className='mobile-wrapper'>
-                {mobileTopVotedOverView.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-              </div>
-            )}
-
-            {/* MOBILE NEWEST MOVIES SECTION */}
-            <div className="collapse-div" onClick={recentSwitch}>
-              <h1 className='section-title' >Newest</h1>
-              <FaArrowDown className={recentToggled ? "ArrowToggled" : "ArrowNotToggled"} />
-            </div>
-            <div className="mobile-separation-line" />
-            {recentCollapse ? (
-              <>
-                <div className="mobile-wrapper">
-                  {mobileRecentOverView.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}   {...x} />) })}
-                  {mobileRecent.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-                </div>
-              </>) : (
-              <div className='mobile-wrapper'>
-                {mobileRecentOverView.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-              </div>
-            )}
-
-          </>
+          MobileAppView(
+            trendingSwitch,
+            trendingToggled,
+            trendingCollapse,
+            mobileTrendingOverView,
+            searchFilter,
+            checkedID,
+            mobileTrending,
+            topVotedSwitch,
+            topVotedToggled,
+            topVotedCollapse,
+            mobileTopVotedOverView,
+            mobileTopVoted,
+            recentSwitch,
+            recentToggled,
+            recentCollapse,
+            mobileRecentOverView,
+            mobileRecent)
         ) : (
           <>
             {/* PC WIDTH */}
@@ -280,7 +222,7 @@ function App() {
               </div>
             )}
             <div style={{ marginTop: '100px' }}>
-              <Footer /></div>
+            </div>
           </>
         )}</div>
     </>
@@ -288,3 +230,4 @@ function App() {
 }
 
 export default App;
+
