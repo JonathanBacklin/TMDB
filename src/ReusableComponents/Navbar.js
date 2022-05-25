@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa';
 import { FiMenu } from 'react-icons/fi'
 import { MdClose } from 'react-icons/md'
@@ -8,7 +8,6 @@ import "../css/navbar.css"
 const Navbar = ({ handleChange }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [openSearchBar, setOpenSearchBar] = useState(false)
-
 
   const navbarToggle = () => {
     setIsOpen(!isOpen)
@@ -21,11 +20,11 @@ const Navbar = ({ handleChange }) => {
       <div className="navbar-container">
         <div className="navbar-content">
           <div>
-            <Link to="/" style={{ textDecoration: 'none', color: 'white' }}><h1 >Movies</h1></Link>
+            <NavLink to="/" style={{ textDecoration: 'none', color: 'white' }}><h1 >Movies</h1></NavLink>
           </div>
           <div className={`navbar-links ${isOpen ? 'showMenu' : ""}`}>
-            <Link to="/" className='navbar-link'>Home</Link>
-            <Link to="/Discover" className='navbar-link'>Discover</Link>
+            <NavLink to="/" className='navbar-link'>Home</NavLink>
+            <NavLink to="/Discover" className='navbar-link'>Discover</NavLink>
           </div>
           <div className="search-bar-div">
             <input type="text" className='search-bar' onChange={handleChange} placeholder="Search..." />

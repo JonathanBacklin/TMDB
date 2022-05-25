@@ -5,7 +5,7 @@ import App from './Pages/App';
 import Discover from './Pages/Discover';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ClickedShell from './Pages/ClickedShell';
-import Footer from './Components/Footer';
+import Footer from './ReusableComponents/Footer';
 
 ReactDOM.render(
   <React.StrictMode>

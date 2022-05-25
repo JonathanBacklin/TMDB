@@ -1,9 +1,12 @@
 import React from 'react';
 import { Slider } from '@material-ui/core';
-import MovieShell from './MovieShell';
+import MovieShell from '../ReusableComponents/MovieShell';
 import { PaginationComponent } from '../Utilities/PaginationComponent';
 
-export const MobileDiscoverView = (addFilters, genreCollapse, genreOverview, setFilterGenre, genre, setGenreCollapse, minRating, updateMinRating, maxRating, updateMaxRating, fromReleaseYear, updatefromReleaseYear, toReleaseYear, updateToReleaseYear, handleFilters, mobileDiscover, searchFilter, page, setPage) => {
+export const MobileDiscoverComponent = (addFilters, genreCollapse, genreOverview, setFilterGenre,
+  genre, setGenreCollapse, minRating, updateMinRating, maxRating, updateMaxRating, fromReleaseYear,
+  updatefromReleaseYear, toReleaseYear, updateToReleaseYear, handleFilters,
+  mobileDiscover, searchFilter, page, setPage) => {
   return (
     <div className="mobile-discover-wrapper">
       <div className="mobile-filter-section">{addFilters ? <>{genreCollapse ? <>

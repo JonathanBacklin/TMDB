@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { FaArrowDown } from 'react-icons/fa';
 import '../css/App.css';
 import '../css/mobile.css';
-import MovieShell from '../Components/MovieShell';
-import Navbar from '../Components/Navbar'
+import Navbar from '../ReusableComponents/Navbar'
 import { SearchFunction } from '../Utilities/SearchFunction';
-import { MobileAppView } from '../Components/MobileAppView';
+import { MobileMainComponent } from '../PageComponents/MobileMainComponent';
+import { MainComponent } from '../PageComponents/MainComponent';
 import { ResizeWindowFunction } from '../Utilities/ResizeWindowFunction';
 
-
-
-function App() {
+const App = () => {
   //GENERAL DECLARATIONS
-  const [width, setWidth] = React.useState(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 1000;
 
 
@@ -24,7 +21,6 @@ function App() {
   const [recent, setRecent] = useState([])
   const [recentOverView, setRecentOverView] = useState([])
   const [search, setSearch] = useState('')
-  const [genre, setGenre] = useState([])
   const [trendingCollapse, setTrendingCollapse] = useState(false)
   const [topVotedCollapse, setTopVotedCollapse] = useState(false)
   const [recentCollapse, setRecentCollapse] = useState(false)
@@ -42,23 +38,19 @@ function App() {
   const [mobileRecentOverView, setMobileRecentOverView] = useState([])
 
 
-  // API REQUESTS
+  // API URLS
   const BASEURL = 'https://api.themoviedb.org/3'
   const APIKEY = 'f78a7122e289d7d5eff2ba85c984f4ba'
   const trendingFetch = `${BASEURL}/trending/all/day?api_key=${APIKEY}&language=en-US&page=1`
   const topRatedFetch = `${BASEURL}/movie/top_rated?api_key=${APIKEY}&language=en-US&page=1`
   const recentFetch = `${BASEURL}/movie/now_playing?api_key=${APIKEY}&language=en-US&page=1`
-  const genresFetch = `${BASEURL}/genre/movie/list?api_key=${APIKEY}&language=en-US`
   const searchFilter = SearchFunction(search)
 
-
-
-  // MY MANY API CALLS
   ResizeWindowFunction(setWidth);
 
 
+  // API REQUESTS
   useEffect(() => {
-
     const Trending = async () => {
       const response = await fetch(trendingFetch);
       const resJson = await response.json();
@@ -71,7 +63,6 @@ function App() {
       ;
   }, []);
   useEffect(() => {
-
     const TopRated = async () => {
       const response = await fetch(topRatedFetch);
       const resJson = await response.json();
@@ -83,7 +74,6 @@ function App() {
     TopRated();
   }, []);
   useEffect(() => {
-
     const Recent = async () => {
       const response = await fetch(recentFetch);
       const resJson = await response.json();
@@ -94,23 +84,6 @@ function App() {
     };
     Recent();
   }, []);
-  useEffect(() => {
-
-    const Genres = async () => {
-      const response = await fetch(genresFetch);
-      const resJson = await response.json();
-      setGenre(resJson.genres);
-    };
-    Genres();
-  }, []);
-
-  const checkedID = x => {
-    let test = genre.map((x) => x.id && x.name)
-    if (test.includes(x.genre_ids)) {
-      return test.name
-    }
-
-  }
 
   const trendingSwitch = () => {
     trendingToggled ? setTrendingToggled(false) : setTrendingToggled(true)
@@ -139,13 +112,12 @@ function App() {
       <Navbar handleChange={handleChange} />
       <div className="App-container">
         {width < breakpoint ? (
-          MobileAppView(
+          MobileMainComponent(
             trendingSwitch,
             trendingToggled,
             trendingCollapse,
             mobileTrendingOverView,
             searchFilter,
-            checkedID,
             mobileTrending,
             topVotedSwitch,
             topVotedToggled,
@@ -158,76 +130,27 @@ function App() {
             mobileRecentOverView,
             mobileRecent)
         ) : (
-          <>
-            {/* PC WIDTH */}
-
-            {/* TRENDING SECTION */}
-            <div className="collapse-div" onClick={trendingSwitch}>
-              <h1 className='section-title' >Trending</h1><FaArrowDown className={trendingToggled ? "ArrowToggled" : "ArrowNotToggled"} />
-            </div>
-            <div className="separation-line" />
-            {trendingCollapse ? (
-              <>
-                <div className="wrapper">
-                  {trendingOverView.filter((x) => searchFilter(x))
-                    .map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-                  {trending.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}   {...x} />) })}
-                </div>
-              </>) : (
-              <div className='wrapper'>
-                {trendingOverView.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}   {...x} />) })}
-
-              </div>
-            )}
-
-
-
-            {/* TOP VOTED SECTION */}
-            <div className="collapse-div" onClick={topVotedSwitch} >
-              <h1 className='section-title' >Top Voted</h1>
-              <FaArrowDown className={topVotedToggled ? "ArrowToggled" : "ArrowNotToggled"} />
-            </div>
-            <div className="separation-line" />
-            {topVotedCollapse ? (
-              <>
-                <div className="wrapper">
-                  {topVotedOverView.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-                  {topVoted.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-                </div>
-
-              </>) : (
-              <div className='wrapper'>
-                {topVotedOverView.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-              </div>
-            )}
-
-
-
-
-            {/* NEWEST MOVIES SECTION */}
-            <div className="collapse-div" onClick={recentSwitch}>
-              <h1 className='section-title' >Newest</h1>
-              <FaArrowDown className={recentToggled ? "ArrowToggled" : "ArrowNotToggled"} />
-            </div>
-            <div className="separation-line" />
-            {recentCollapse ? (
-              <>
-                <div className="wrapper">
-                  {recentOverView.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}   {...x} />) })}
-                  {recent.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-                </div>
-              </>) : (
-              <div className='wrapper'>
-                {recentOverView.filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} checkedID={checkedID(x)}  {...x} />) })}
-              </div>
-            )}
-            <div style={{ marginTop: '100px' }}>
-            </div>
-          </>
-        )}</div>
+          MainComponent(trendingSwitch,
+            trendingToggled,
+            trendingCollapse,
+            trendingOverView,
+            searchFilter,
+            trending,
+            topVotedSwitch,
+            topVotedToggled,
+            topVotedCollapse,
+            topVotedOverView,
+            topVoted, recentSwitch,
+            recentToggled,
+            recentCollapse,
+            recentOverView,
+            recent)
+        )}
+      </div>
     </>
   );
 }
 
 export default App;
+
 

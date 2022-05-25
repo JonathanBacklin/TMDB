@@ -1,13 +1,7 @@
-html,
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
 .App-container {
     padding: 2em 0 2em 0;
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     box-sizing: border-box;
     color: white;
 
@@ -15,7 +9,7 @@ body {
 
 .separation-line {
     height: 2px;
-    width: 90%;
+    width: 100%;
     margin: 15px auto;
     background-color: #AD7D62;
 }
@@ -44,8 +38,6 @@ body {
 }
 
 .collapse-div {
-    width: 90%;
-    margin: 0 auto;
     display: flex;
     align-items: baseline;
     cursor: pointer;
@@ -56,7 +48,7 @@ body {
 .wrapper {
     display: grid;
     grid-template-columns: repeat(5, auto);
-    padding: 15px 0 0 0;
+    padding: 0;
 }
 
 .movieshell-container {

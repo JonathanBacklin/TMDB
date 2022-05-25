@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { ResizeWindowFunction } from '../Utilities/ResizeWindowFunction';
 
 
 
 
-const MovieShell = ({ media_type: mediaType, id, poster_path, backdrop_path, original_title, name, vote_average, release_date, first_air_date, checkedID }) => {
+const MovieShell = ({ media_type: mediaType, id, poster_path, backdrop_path, original_title,
+  name, vote_average, release_date, first_air_date }) => {
   //DECLARATIONS
   const [isShown, setIsShown] = useState(false);
   mediaType = mediaType || 'movie';
-  const [width, setWidth] = React.useState(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 1100;
-  useEffect(() => {
-    const handleResizeWindow = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleResizeWindow);
-    return () => {
-      window.removeEventListener("resize", handleResizeWindow);
-    };
-  }, []);
+
+  ResizeWindowFunction(setWidth);
 
   return (
     <div key={id}>
@@ -30,7 +27,6 @@ const MovieShell = ({ media_type: mediaType, id, poster_path, backdrop_path, ori
                 <h4 className='text'>{name}</h4>
                 <h4 className='text'>{release_date ? release_date.slice(0, 4) : first_air_date.slice(0, 4)}</h4>
                 <h4 className="text">Rating: {vote_average}</h4>
-                <h4 className="text">{checkedID}</h4>
               </div>
             )}
           </Link>
