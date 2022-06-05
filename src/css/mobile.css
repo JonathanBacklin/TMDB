@@ -6,7 +6,7 @@
 
 .mobile-separation-line {
   height: 2px;
-  width: 90%;
+  width: 96%;
   margin: 15px auto;
   background-color: #AD7D62;
 }
@@ -17,7 +17,6 @@
   position: relative;
   width: 150px;
   margin: 0 auto;
-
 }
 
 .smaller-image {

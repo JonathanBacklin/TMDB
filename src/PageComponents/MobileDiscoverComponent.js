@@ -46,7 +46,7 @@ export const MobileDiscoverComponent = (addFilters, genreCollapse, genreOverview
           <Slider className='range-input' size="medium" min={1932} max={2022} value={toReleaseYear} onChange={updateToReleaseYear} />
         </div>
 
-        <h1 style={{ textAlign: 'center' }} onClick={handleFilters}>Close Filters</h1>
+        <h1 style={{ textAlign: 'center' }} onClick={handleFilters}>Close Filters -</h1>
         <div className="mobile-separation-line"></div>
       </> :
         <h1 onClick={handleFilters}>Add Filters +</h1>}

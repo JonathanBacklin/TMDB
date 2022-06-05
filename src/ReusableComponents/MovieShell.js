@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { ResizeWindowFunction } from '../Utilities/ResizeWindowFunction';
 
-
-
-
 const MovieShell = ({ media_type: mediaType, id, poster_path, backdrop_path, original_title,
   name, vote_average, release_date, first_air_date }) => {
+
   //DECLARATIONS
   const [isShown, setIsShown] = useState(false);
   mediaType = mediaType || 'movie';

@@ -35,10 +35,10 @@ const Discover = () => {
   const [mobileDiscover, setMobileDiscover] = useState([])
 
   // API REQUESTS
-  const apiKey = 'f78a7122e289d7d5eff2ba85c984f4ba'
-  const baseUrl = 'https://api.themoviedb.org/3'
-  const discoverFetch = `${baseUrl}/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&with_genres=${filterGenre}&include_adult=false&include_video=false&page=${page}&release_date.gte=${fromReleaseYear}&release_date.lte=${toReleaseYear}&vote_average.gte=${minRating}&vote_average.lte=${maxRating}`
-  const genresFetch = `${baseUrl}/genre/movie/list?api_key=${apiKey}&language=en-US`
+  const APIKEY = 'f78a7122e289d7d5eff2ba85c984f4ba'
+  const BASEURL = 'https://api.themoviedb.org/3'
+  const discoverFetch = `${BASEURL}/discover/movie?api_key=${APIKEY}&language=en-US&sort_by=popularity.desc&with_genres=${filterGenre}&include_adult=false&include_video=false&page=${page}&release_date.gte=${fromReleaseYear}&release_date.lte=${toReleaseYear}&vote_average.gte=${minRating}&vote_average.lte=${maxRating}`
+  const genresFetch = `${BASEURL}/genre/movie/list?api_key=${APIKEY}&language=en-US`
   const searchFilter = SearchFunction(search)
 
   ResizeWindowFunction(setWidth);

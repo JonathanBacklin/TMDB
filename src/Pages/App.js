@@ -13,6 +13,8 @@ const App = () => {
   const breakpoint = 1000;
 
 
+  //
+
   //PC MOVIE DECLARATIONS
   const [trending, setTrending] = useState([])
   const [trendingOverView, setTrendingOverView] = useState([])

@@ -47,7 +47,7 @@ export const DiscoverComponent = (minRating, updateMinRating, maxRating, updateM
     </div>
     <div className="discover-movies">
       <h1 className='section-title'>Discover</h1>
-      <div className="discover-separation-line"></div>
+      <div className="discover-separation-line" />
       <div className="discover-movies-content">
         {discoverMovies.filter(x => searchFilter(x)).map(x => {
           return (

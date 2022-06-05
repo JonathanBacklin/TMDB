@@ -24,7 +24,12 @@ const ClickedShell = x => {
   const [reviews, setReviews] = useState([])
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 1000;
+  let imgSize = width > breakpoint ? 'w200' : 'w154'
 
+  const BASEURL = `https://api.themoviedb.org/3/`
+  const APIKEY = `f78a7122e289d7d5eff2ba85c984f4ba`
+  const MovieInformationFetch = `${BASEURL}${mediaType}/${id}?api_key=${APIKEY}&language=en-US&append_to_response=videos`
+  const CastFetch = `${BASEURL}${mediaType}/${id}/credits?api_key=${APIKEY}&language=en-US`
 
   useEffect(() => {
     console.log(id)
@@ -34,10 +39,11 @@ const ClickedShell = x => {
 
   useEffect(() => {
     let MovieInformation = async () => {
-      let response = await fetch(`https://api.themoviedb.org/3/${mediaType}/${id}?api_key=f78a7122e289d7d5eff2ba85c984f4ba&language=en-US&append_to_response=videos`);
+      let response = await fetch(MovieInformationFetch);
       let resJson = await response.json();
       setMovies(resJson)
       setGenres(resJson.genres)
+      console.log(resJson.genres)
       setTrailer(resJson.videos)
     };
     MovieInformation();
@@ -45,7 +51,7 @@ const ClickedShell = x => {
 
   useEffect(() => {
     let Cast = async () => {
-      let response = await fetch(`https://api.themoviedb.org/3/${mediaType}/${id}/credits?api_key=f78a7122e289d7d5eff2ba85c984f4ba&language=en-US`);
+      let response = await fetch(CastFetch);
       let resJson = await response.json();
       setActorsOverview(resJson.cast.slice(0, 6))
       setActors(resJson.cast.slice(6, 14))
@@ -53,26 +59,24 @@ const ClickedShell = x => {
     Cast();
   }, []);
 
-  const ActorsSwitch = () => {
-    actorsToggled ? setActorsToggled(false) : setActorsToggled(true)
-    setActorsCollapse(!actorsCollapse)
-  }
+
 
 
   useEffect(() => {
     let Reviews = async () => {
-      let response = await fetch(`https://api.themoviedb.org/3/${mediaType}/${id}/reviews?api_key=f78a7122e289d7d5eff2ba85c984f4ba&language=en-US&page=1`);
+      let response = await fetch(`${BASEURL}${mediaType}/${id}/reviews?api_key=${APIKEY}&language=en-US&page=1`);
       let resJson = await response.json();
       setReviews(resJson.results)
     };
     Reviews();
   }, []);
 
-  let imgSize = width > breakpoint ? 'w200' : 'w185'
 
-  useEffect(() => {
-    console.log(trailer.results)
-  }, [trailer])
+
+  const ActorsSwitch = () => {
+    actorsToggled ? setActorsToggled(false) : setActorsToggled(true)
+    setActorsCollapse(!actorsCollapse)
+  }
 
   const render = () => {
     const movieTrailer = trailer.results.find(x =>
@@ -100,16 +104,21 @@ const ClickedShell = x => {
     <>
       <Navbar />
       <div className='specific-movie-section'>
-        <div className='specific-header-section'>
+        <div className={`${width > breakpoint ? 'specific-header-section' : 'mobile-specific-header-section'}`} >
           {trailer.results ? render() : null}
         </div>
-        <h1 style={{ textAlign: 'center', fontSize: '64px' }}> {movies.original_title} - {movies.release_date ? movies.release_date.slice(0, 4) : null}</h1>
+        {width > breakpoint ?
+          <h1 style={{ textAlign: 'center', fontSize: '64px' }}> {movies.original_title ? movies.original_title : movies.original_name} - {movies.release_date ? movies.release_date.slice(0, 4) : movies.first_air_date}</h1>
+          :
+          <h3 style={{ textAlign: 'center', fontSize: '32px' }}> {movies.original_title ? movies.original_title : movies.original_name} - {movies.release_date ? movies.release_date.slice(0, 4) : movies.first_air_date}</h3>
+
+        }
         <div className='specific-description-container'>
           <div className='specific-description-header'>
             <h1>Description</h1>
             <h1>Rating: {movies.vote_average}</h1>
           </div>
-          <div className='specific-separation-line'></div>
+          <div className='specific-separation-line' />
           <h3>{movies.overview}</h3>
           <h5 style={{ display: 'flex' }}>{genres.map(x => { return (<div className='specific-genre' key={x.id}>{x.name}</div>) })}</h5>
         </div>
@@ -118,7 +127,7 @@ const ClickedShell = x => {
             <h1>Actors</h1>
             <FaArrowDown className={actorsToggled ? "ArrowToggled" : "ArrowNotToggled"} />
           </div>
-          <div className='specific-separation-line'></div>
+          <div className='specific-separation-line' />
           <div className="actors">
             {actorsCollapse ? (<>
               {actorsOverview.map(x => { return (<div key={x.id}><img src={x.profile_path !== null ? `http://image.tmdb.org/t/p/${imgSize}/${x.profile_path}` : null} alt="Actor/Actress" /><h3>{x.name}</h3> </div>) })}
@@ -135,7 +144,7 @@ const ClickedShell = x => {
 
         <div className='specific-reviews-container'>
           <h1>Reviews({reviews.length})</h1>
-          <div className='specific-separation-line'></div>
+          <div className='specific-separation-line' />
           {reviews.map(x => {
             return (
               <Review {...x} />

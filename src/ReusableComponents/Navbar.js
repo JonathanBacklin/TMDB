@@ -31,7 +31,7 @@ const Navbar = ({ handleChange }) => {
             <FaSearch id='search-icon' onClick={handleSearchbar} />
           </div>
           <div className='responsive-navbar-button-wrapper'>
-            <button onClick={handleSearchbar} style={{ background: 'transparent', border: 'none' }}>{openSearchBar ? <MdClose style={{ fontSize: '30px', color: 'white' }} /> : <FaSearch style={{ fontSize: '22px', color: 'white' }} />}</button>
+            <button className={`${isOpen ? "SearchBarHidden" : null}`} onClick={handleSearchbar} style={{ background: 'transparent', border: 'none' }}>{openSearchBar ? <MdClose style={{ fontSize: '30px', color: 'white' }} /> : <FaSearch style={{ fontSize: '22px', color: 'white' }} />}</button>
 
             <button onClick={navbarToggle} className='navbar-button'>{isOpen ? <MdClose /> : <FiMenu />}</button>
           </div>
