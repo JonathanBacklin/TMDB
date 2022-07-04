@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../ReusableComponents/Navbar'
+import Navbar from '../Components/Navbar'
 import { FaArrowDown } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import '../css/specific.css'
 import YouTube from 'react-youtube';
-import Review from '../ReusableComponents/Review';
-import { ResizeWindowFunction } from '../Utilities/ResizeWindowFunction';
+import Review from '../Components/Review';
+import { UseResizeWindowFunction } from '../Utilities/UseResizeWindowFunction';
+import { CastFetch, ReviewsFetch, SeparateMovieFetch } from '../Utilities/API';
 
 
 
 
-const ClickedShell = x => {
+const ClickedMovie = x => {
   //DECLARATIONS
   const { mediaType } = x;
   const { id } = useParams()
   const [movies, setMovies] = useState([])
   const [trailer, setTrailer] = useState([])
   const [actors, setActors] = useState([])
-  const [actorsOverview, setActorsOverview] = useState([])
   const [actorsCollapse, setActorsCollapse] = useState(false)
   const [actorsToggled, setActorsToggled] = useState(false)
   const [genres, setGenres] = useState([])
@@ -26,56 +26,25 @@ const ClickedShell = x => {
   const breakpoint = 1000;
   let imgSize = width > breakpoint ? 'w200' : 'w154'
 
-  const BASEURL = `https://api.themoviedb.org/3/`
-  const APIKEY = `f78a7122e289d7d5eff2ba85c984f4ba`
-  const MovieInformationFetch = `${BASEURL}${mediaType}/${id}?api_key=${APIKEY}&language=en-US&append_to_response=videos`
-  const CastFetch = `${BASEURL}${mediaType}/${id}/credits?api_key=${APIKEY}&language=en-US`
+  UseResizeWindowFunction(setWidth);
+
+
+
+  // Fetching Api Requests
+  let MovieInformation = SeparateMovieFetch(mediaType, id, setMovies, setGenres, setTrailer);
+  let Cast = CastFetch(mediaType, id, setActors);
+  let Reviews = ReviewsFetch(mediaType, id, setReviews);
 
   useEffect(() => {
-    console.log(id)
-  }, [id])
-
-  ResizeWindowFunction(setWidth);
-
-  useEffect(() => {
-    let MovieInformation = async () => {
-      let response = await fetch(MovieInformationFetch);
-      let resJson = await response.json();
-      setMovies(resJson)
-      setGenres(resJson.genres)
-      console.log(resJson.genres)
-      setTrailer(resJson.videos)
-    };
-    MovieInformation();
-  }, []);
-
-  useEffect(() => {
-    let Cast = async () => {
-      let response = await fetch(CastFetch);
-      let resJson = await response.json();
-      setActorsOverview(resJson.cast.slice(0, 6))
-      setActors(resJson.cast.slice(6, 14))
-    };
     Cast();
-  }, []);
-
-
-
-
-  useEffect(() => {
-    let Reviews = async () => {
-      let response = await fetch(`${BASEURL}${mediaType}/${id}/reviews?api_key=${APIKEY}&language=en-US&page=1`);
-      let resJson = await response.json();
-      setReviews(resJson.results)
-    };
+    MovieInformation();
     Reviews();
   }, []);
 
 
-
   const ActorsSwitch = () => {
-    actorsToggled ? setActorsToggled(false) : setActorsToggled(true)
-    setActorsCollapse(!actorsCollapse)
+    setActorsToggled(prev => !prev)
+    setActorsCollapse(prev => !prev)
   }
 
   const render = () => {
@@ -114,13 +83,21 @@ const ClickedShell = x => {
 
         }
         <div className='specific-description-container'>
-          <div className='specific-description-header'>
-            <h1>Description</h1>
-            <h1>Rating: {movies.vote_average}</h1>
-          </div>
+          {width > breakpoint ?
+            <div className='specific-description-header'>
+              <h1>Description</h1>
+              <h1>Rating: {movies.vote_average}</h1>
+            </div>
+            :
+            <div style={{ display: 'block', textAlign: 'center' }}>
+              <h1 style={{ textAlign: 'center' }}>Rating: {movies.vote_average}</h1>
+              <h1 style={{ textAlign: 'center' }}>Description</h1>
+            </div>
+          }
+
           <div className='specific-separation-line' />
           <h3>{movies.overview}</h3>
-          <h5 style={{ display: 'flex' }}>{genres.map(x => { return (<div className='specific-genre' key={x.id}>{x.name}</div>) })}</h5>
+          <h5 style={{ display: 'flex', flexWrap: 'wrap' }}>{genres.map(x => { return (<div className='specific-genre' key={x.id} style={{ margin: '5px' }}>{x.name}</div>) })}</h5>
         </div>
         <div className='specific-actors-container' >
           <div className="collapse-div" onClick={ActorsSwitch}>
@@ -130,12 +107,12 @@ const ClickedShell = x => {
           <div className='specific-separation-line' />
           <div className="actors">
             {actorsCollapse ? (<>
-              {actorsOverview.map(x => { return (<div key={x.id}><img src={x.profile_path !== null ? `http://image.tmdb.org/t/p/${imgSize}/${x.profile_path}` : null} alt="Actor/Actress" /><h3>{x.name}</h3> </div>) })}
-              {actors.map(x => { return (<div key={x.id}><img src={`http://image.tmdb.org/t/p/${imgSize}/${x.profile_path}`} alt="Actor/Actress" /><h3>{x.name}</h3> </div>) })}
+              {actors.slice(0, 6).map(x => { return (<div key={x.id}><img src={x.profile_path !== null ? `http://image.tmdb.org/t/p/${imgSize}/${x.profile_path}` : null} alt="Actor/Actress" /><h3>{x.name}</h3> </div>) })}
+              {actors.slice(6, 14).map(x => { return (<div key={x.id}><img src={`http://image.tmdb.org/t/p/${imgSize}/${x.profile_path}`} alt="Actor/Actress" /><h3>{x.name}</h3> </div>) })}
             </>
             ) : (
               <>
-                {actorsOverview.map(x => { return (<div key={x.id}><img src={`http://image.tmdb.org/t/p/${imgSize}/${x.profile_path}`} alt="Actor/Actress" /><h3>{x.name}</h3> </div>) })}
+                {actors.slice(0, 6).map(x => { return (<div key={x.id}><img src={`http://image.tmdb.org/t/p/${imgSize}/${x.profile_path}`} alt="Actor/Actress" /><h3>{x.name}</h3> </div>) })}
               </>
             )
             }
@@ -157,6 +134,12 @@ const ClickedShell = x => {
   )
 }
 
-export default ClickedShell
+export default ClickedMovie
+
+
+
+
+
+
 
 

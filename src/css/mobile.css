@@ -4,13 +4,6 @@
   padding: 15px 0 0 0;
 }
 
-.mobile-separation-line {
-  height: 2px;
-  width: 96%;
-  margin: 15px auto;
-  background-color: #AD7D62;
-}
-
 .mobile-movieshell-content {
   display: flex;
   justify-content: center;

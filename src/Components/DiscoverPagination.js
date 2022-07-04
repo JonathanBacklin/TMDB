@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
-export function PaginationComponent(page, setPage) {
+export const DiscoverPagination = (page, setPage) => {
 
   const JumpTenPageFunction = () => {
     page > 10 ? setPage(page - 10) : setPage(1)

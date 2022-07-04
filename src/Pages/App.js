@@ -1,27 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import '../css/App.css';
 import '../css/mobile.css';
-import Navbar from '../ReusableComponents/Navbar'
+import Navbar from '../Components/Navbar'
 import { SearchFunction } from '../Utilities/SearchFunction';
-import { MobileMainComponent } from '../PageComponents/MobileMainComponent';
-import { MainComponent } from '../PageComponents/MainComponent';
-import { ResizeWindowFunction } from '../Utilities/ResizeWindowFunction';
+import { UseResizeWindowFunction } from '../Utilities/UseResizeWindowFunction';
+import { FaArrowDown } from 'react-icons/fa';
+import MovieShell from '../Components/MovieShell';
+import { RecentFetch, TopRatedFetch, TrendingFetch } from '../Utilities/API';
 
 const App = () => {
   //GENERAL DECLARATIONS
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 1000;
 
-
-  //
-
   //PC MOVIE DECLARATIONS
-  const [trending, setTrending] = useState([])
-  const [trendingOverView, setTrendingOverView] = useState([])
-  const [topVoted, setTopVoted] = useState([])
-  const [topVotedOverView, setTopVotedOverView] = useState([])
-  const [recent, setRecent] = useState([])
-  const [recentOverView, setRecentOverView] = useState([])
+  const [trendingData, setTrendingData] = useState([])
+  const [topVotedData, setTopVotedData] = useState([])
+  const [recentData, setRecentData] = useState([])
   const [search, setSearch] = useState('')
   const [trendingCollapse, setTrendingCollapse] = useState(false)
   const [topVotedCollapse, setTopVotedCollapse] = useState(false)
@@ -31,73 +26,35 @@ const App = () => {
   const [recentToggled, setRecentToggled] = useState(false)
 
 
-  //MOBILE MOVIE DECLARATIONS
-  const [mobileTrending, setMobileTrending] = useState([])
-  const [mobileTrendingOverView, setMobileTrendingOverView] = useState([])
-  const [mobileTopVoted, setMobileTopVoted] = useState([])
-  const [mobileTopVotedOverView, setMobileTopVotedOverView] = useState([])
-  const [mobileRecent, setMobileRecent] = useState([])
-  const [mobileRecentOverView, setMobileRecentOverView] = useState([])
 
 
-  // API URLS
-  const BASEURL = 'https://api.themoviedb.org/3'
-  const APIKEY = 'f78a7122e289d7d5eff2ba85c984f4ba'
-  const trendingFetch = `${BASEURL}/trending/all/day?api_key=${APIKEY}&language=en-US&page=1`
-  const topRatedFetch = `${BASEURL}/movie/top_rated?api_key=${APIKEY}&language=en-US&page=1`
-  const recentFetch = `${BASEURL}/movie/now_playing?api_key=${APIKEY}&language=en-US&page=1`
   const searchFilter = SearchFunction(search)
 
-  ResizeWindowFunction(setWidth);
-
+  UseResizeWindowFunction(setWidth);
 
   // API REQUESTS
+  const Trending = TrendingFetch(setTrendingData);
+  const TopRated = TopRatedFetch(setTopVotedData);
+  const Recent = RecentFetch(setRecentData);
+
   useEffect(() => {
-    const Trending = async () => {
-      const response = await fetch(trendingFetch);
-      const resJson = await response.json();
-      setTrending(resJson.results.slice(5));
-      setTrendingOverView(resJson.results.slice(0, 5))
-      setMobileTrending(resJson.results.slice(3, 9))
-      setMobileTrendingOverView(resJson.results.slice(0, 3))
-    };
     Trending()
-      ;
-  }, []);
-  useEffect(() => {
-    const TopRated = async () => {
-      const response = await fetch(topRatedFetch);
-      const resJson = await response.json();
-      setTopVoted(resJson.results.slice(5));
-      setTopVotedOverView(resJson.results.slice(0, 5))
-      setMobileTopVoted(resJson.results.slice(3, 9))
-      setMobileTopVotedOverView(resJson.results.slice(0, 3))
-    };
-    TopRated();
-  }, []);
-  useEffect(() => {
-    const Recent = async () => {
-      const response = await fetch(recentFetch);
-      const resJson = await response.json();
-      setRecent(resJson.results.slice(5));
-      setRecentOverView(resJson.results.slice(0, 5))
-      setMobileRecent(resJson.results.slice(3, 9))
-      setMobileRecentOverView(resJson.results.slice(0, 3))
-    };
-    Recent();
+    Recent()
+    TopRated()
   }, []);
 
   const trendingSwitch = () => {
-    trendingToggled ? setTrendingToggled(false) : setTrendingToggled(true)
-    setTrendingCollapse(!trendingCollapse)
+    setTrendingCollapse(prev => !prev)
+    setTrendingToggled(prev => !prev)
+
   }
   const topVotedSwitch = () => {
-    topVotedToggled ? setTopvotedToggle(false) : setTopvotedToggle(true)
-    setTopVotedCollapse(!topVotedCollapse)
+    setTopvotedToggle(prev => !prev)
+    setTopVotedCollapse(prev => !prev)
   }
   const recentSwitch = () => {
-    recentToggled ? setRecentToggled(false) : setRecentToggled(true)
-    setRecentCollapse(!recentCollapse)
+    setRecentToggled(prev => !prev)
+    setRecentCollapse(prev => !prev)
   }
 
   const handleChange = (e) => {
@@ -113,40 +70,95 @@ const App = () => {
     <>
       <Navbar handleChange={handleChange} />
       <div className="App-container">
-        {width < breakpoint ? (
-          MobileMainComponent(
-            trendingSwitch,
-            trendingToggled,
-            trendingCollapse,
-            mobileTrendingOverView,
-            searchFilter,
-            mobileTrending,
-            topVotedSwitch,
-            topVotedToggled,
-            topVotedCollapse,
-            mobileTopVotedOverView,
-            mobileTopVoted,
-            recentSwitch,
-            recentToggled,
-            recentCollapse,
-            mobileRecentOverView,
-            mobileRecent)
-        ) : (
-          MainComponent(trendingSwitch,
-            trendingToggled,
-            trendingCollapse,
-            trendingOverView,
-            searchFilter,
-            trending,
-            topVotedSwitch,
-            topVotedToggled,
-            topVotedCollapse,
-            topVotedOverView,
-            topVoted, recentSwitch,
-            recentToggled,
-            recentCollapse,
-            recentOverView,
-            recent)
+        <div className="collapse-div" onClick={trendingSwitch}>
+          <h1 className='section-title'>Trending</h1>
+          <FaArrowDown className={trendingToggled ? "ArrowToggled" : "ArrowNotToggled"} />
+        </div>
+        <div className="separation-line" />
+        {trendingCollapse ? (
+          <>
+            <div className={width > breakpoint ? `wrapper` : `mobile-wrapper`}>
+              {width > breakpoint ?
+                trendingData.slice(0, 5).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+                :
+                trendingData.slice(0, 3).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+              }
+              {width > breakpoint ?
+                trendingData.slice(5).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+                :
+                trendingData.slice(3, 9).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+              }
+            </div>
+
+          </>) : (
+          <div className={width > breakpoint ? `wrapper` : `mobile-wrapper`}>
+            {width > breakpoint ?
+              trendingData.slice(0, 5).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+              :
+              trendingData.slice(0, 3).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+            }
+          </div>
+        )}
+        {/* vanlig overview -> mobile overview -> normal view -> mobil vanlig view -> vanlig overview -> mobil overview */}
+        {/* TOP VOTED SECTION */}
+        <div className="collapse-div" onClick={topVotedSwitch}>
+          <h1 className='section-title'>Top Voted</h1>
+          <FaArrowDown className={topVotedToggled ? "ArrowToggled" : "ArrowNotToggled"} />
+        </div>
+        <div className="separation-line" />
+        {topVotedCollapse ? (
+          <>
+            <div className={width > breakpoint ? `wrapper` : `mobile-wrapper`}>
+              {width > breakpoint ?
+                topVotedData.slice(0, 5).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+                :
+                topVotedData.slice(0, 3).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+              }
+              {width > breakpoint ?
+                topVotedData.slice(5).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+                :
+                topVotedData.slice(3, 9).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+              }
+            </div>
+
+          </>) : (
+          <div className={width > breakpoint ? `wrapper` : `mobile-wrapper`}>
+            {width > breakpoint ?
+              topVotedData.slice(0, 5).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+              :
+              topVotedData.slice(0, 3).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+            }
+          </div>
+        )}
+
+        {/* NEWEST MOVIES SECTION */}
+        <div className="collapse-div" onClick={recentSwitch}>
+          <h1 className='section-title'>Newest</h1>
+          <FaArrowDown className={recentToggled ? "ArrowToggled" : "ArrowNotToggled"} />
+        </div>
+        <div className="separation-line" />
+        {recentCollapse ? (
+          <>
+            <div className={width > breakpoint ? `wrapper` : `mobile-wrapper`}>
+              {width > breakpoint ?
+                recentData.slice(0, 5).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+                :
+                recentData.slice(0, 3).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />) })
+              }
+              {width > breakpoint ?
+                recentData.slice(5).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+                :
+                recentData.slice(3, 9).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+              }
+            </div>
+          </>) : (
+          <div className={width > breakpoint ? `wrapper` : `mobile-wrapper`}>
+            {width > breakpoint ?
+              recentData.slice(0, 5).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+              :
+              recentData.slice(0, 3).filter((x) => searchFilter(x)).map(x => { return (<MovieShell key={x.id} {...x} />); })
+            }
+          </div>
         )}
       </div>
     </>
@@ -154,5 +166,9 @@ const App = () => {
 }
 
 export default App;
+
+
+
+
 
 
