@@ -53,7 +53,7 @@ const ClickedMovie = x => {
       x.type === "Official" ||
       x.name === "Main Trailer" ||
       x.type === "Trailer" ||
-      x.name === "Trailer")
+      x.name === "Trailer" || x.name[0])
 
     return (
       <YouTube
@@ -61,7 +61,7 @@ const ClickedMovie = x => {
         containerClassName={"youtube-container"}
         opts={{
           width: '100%',
-          height: '100%'
+          height: '85%'
         }}
       />)
   }
