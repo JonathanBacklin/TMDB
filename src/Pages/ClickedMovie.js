@@ -61,7 +61,7 @@ const ClickedMovie = x => {
         containerClassName={"youtube-container"}
         opts={{
           width: '100%',
-          height: '85%'
+          height: '100%'
         }}
       />)
   }
